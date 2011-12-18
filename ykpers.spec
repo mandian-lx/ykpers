@@ -5,7 +5,7 @@
 Summary:	Yubikey Personalization
 Name:		ykpers
 Version:	1.6.3
-Release:	1
+Release:	2
 Group:		System/Libraries
 License:	BSD
 URL:		http://code.google.com/p/yubikey-personalization/
