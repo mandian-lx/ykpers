@@ -13,7 +13,7 @@ Source0:	http://yubikey-personalization.googlecode.com/files/%{name}-%{version}.
 Source1:	http://yubikey-personalization.googlecode.com/files/%{name}-%{version}.tar.gz.sig
 BuildRequires:	autoconf automake libtool
 BuildRequires:	libyubikey-devel
-BuildRequires:	libusb-devel
+BuildRequires:	usb1-devel
 
 %description
 The YubiKey Personalization package contains a library and command line tool
