@@ -4,16 +4,15 @@
 
 Summary:	Yubikey Personalization
 Name:		ykpers
-Version:	1.7.0
+Version:	1.14.0
 Release:	1
 Group:		System/Libraries
 License:	BSD
 URL:		http://code.google.com/p/yubikey-personalization/
 Source0:	http://yubikey-personalization.googlecode.com/files/%{name}-%{version}.tar.gz
-Source1:	http://yubikey-personalization.googlecode.com/files/%{name}-%{version}.tar.gz.sig
 BuildRequires:	autoconf automake libtool
 BuildRequires:	libyubikey-devel
-BuildRequires:	usb1-devel
+BuildRequires:	pkgconfig(libusb-1.0)
 
 %description
 The YubiKey Personalization package contains a library and command line tool
@@ -80,6 +79,7 @@ rm -f %{buildroot}%{_libdir}/*.*a
 
 %files tools
 %{_bindir}/ykchalresp
+%{_bindir}/ykinfo
 %{_bindir}/ykpersonalize
 %{_mandir}/man1/*
 
