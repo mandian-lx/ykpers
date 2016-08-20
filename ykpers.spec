@@ -4,12 +4,14 @@
 
 Summary:	Yubikey Personalization
 Name:		ykpers
-Version:	1.14.0
+Version:	1.17.3
 Release:	1
 Group:		System/Libraries
 License:	BSD
-URL:		http://code.google.com/p/yubikey-personalization/
-Source0:	http://yubikey-personalization.googlecode.com/files/%{name}-%{version}.tar.gz
+URL:		https://developers.yubico.com/yubikey-personalization/
+Source0:	https://developers.yubico.com/yubikey-personalization/Releases/%{name}-%{version}.tar.gz
+Source1:	https://developers.yubico.com/yubikey-personalization/Releases/%{name}-%{version}.tar.gz.sig
+
 BuildRequires:	autoconf automake libtool
 BuildRequires:	libyubikey-devel
 BuildRequires:	pkgconfig(libusb-1.0)
@@ -18,15 +20,23 @@ BuildRequires:	pkgconfig(libusb-1.0)
 The YubiKey Personalization package contains a library and command line tool
 used to personalize (i.e., set a AES key) YubiKeys.
 
-%package -n	%{libname}
+#----------------------------------------------------------------------------
+
+%package -n %{libname}
 Summary:	The shared Yubikey Personalization library
-Group:          System/Libraries
+Group:		System/Libraries
 
 %description -n	%{libname}
 The YubiKey Personalization package contains a library and command line tool
 used to personalize (i.e., set a AES key) YubiKeys.
 
-%package -n	%{develname}
+%files -n %{libname}
+%doc AUTHORS ChangeLog NEWS README
+%{_libdir}/libykpers-*.so.%{major}*
+
+#----------------------------------------------------------------------------
+
+%package -n %{develname}
 Summary:	Development files for the Yubikey Personalization library
 Group:		Development/C
 Provides:	%{name}-devel = %{version}
@@ -38,48 +48,40 @@ used to personalize (i.e., set a AES key) YubiKeys.
 
 This package contains the development files for the ykpers library.
 
-%package	tools
-Summary:	Command line tools for ykpers
-Group:          System/Libraries
-
-%description	tools
-The YubiKey Personalization package contains a library and command line tool
-used to personalize (i.e., set a AES key) YubiKeys.
-
-This package contains various tools for ykpers.
-
-%prep
-
-%setup -q -n %{name}-%{version}
-
-%build
-#autoreconf -fis
-
-%configure2_5x
-
-%make
-
-%install
-rm -rf %{buildroot}
-
-%makeinstall_std
-
-# cleanups
-rm -f %{buildroot}%{_libdir}/*.*a
-
-%files -n %{libname}
-%doc AUTHORS ChangeLog NEWS README
-%{_libdir}/libykpers-*.so.%{major}*
-
 %files -n %{develname}
 %dir %{_includedir}/ykpers-1
 %{_includedir}/ykpers-1/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
 
+#----------------------------------------------------------------------------
+
+%package tools
+Summary:	Command line tools for ykpers
+Group:		System/Libraries
+
+%description tools
+The YubiKey Personalization package contains a library and command line tool
+used to personalize (i.e., set a AES key) YubiKeys.
+
+This package contains various tools for ykpers.
+
 %files tools
 %{_bindir}/ykchalresp
 %{_bindir}/ykinfo
 %{_bindir}/ykpersonalize
 %{_mandir}/man1/*
+
+#----------------------------------------------------------------------------
+
+%prep
+%setup -q
+
+%build
+#autoreconf -fis
+%configure
+%make
+
+%install
+%makeinstall_std
 
