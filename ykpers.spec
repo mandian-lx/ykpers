@@ -79,7 +79,7 @@ This package contains various tools for ykpers.
 
 %build
 #autoreconf -fis
-%configure
+%configure --disable-static
 %make
 
 %install
